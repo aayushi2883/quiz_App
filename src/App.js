@@ -1,8 +1,9 @@
 import React, {useState} from "react";
+import "./index.css"
 
 function App() {
   
-  const [ currentQuestionOn, setQuestion ] = useState(1);
+  const [ currentQuestionOn, setQuestion ] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
 
@@ -17,6 +18,8 @@ function App() {
       setShowScore(true);
     }
   };
+
+  const BackToStart = () => window.location.reload();
 
   const questions = [
     {
@@ -68,11 +71,15 @@ function App() {
   return (
     <div className='app'>
 			{showScore ? (
-				<div className='score-section'>You scored {score} out of {questions.length}</div>
+				<div className='score-section'>
+          <h1>Game Over</h1>
+          <p>You scored {score} out of {questions.length}!</p>
+          <button id="refreshButton" onClick={BackToStart}>Retry</button>
+        </div>
 			) : (
 				<>
 					<div className='question-section'>
-						<div className='question-text'>{questions[currentQuestionOn].questionText}</div>
+						<h1 className='question-text'>{questions[currentQuestionOn].questionText}</h1>
 					</div>
 					<div className='answer-section'>
 						{questions[currentQuestionOn].answerOptions.map((answerOption, index) => (
